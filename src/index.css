@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer utilities {
+  /* Extreme Glassmorphism & Holo Specular Container */
+  .glass-card {
+    background: rgba(10, 10, 12, 0.45);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Ultra-subtle Micro Specular Pin-Light */
+  .micro-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 6;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+    opacity: var(--glare-opacity, 0);
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle 160px at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.05) 45%,
+      transparent 70%
+    );
+  }
+
+  /* Holographic Sheen Layer */
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 40%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+    transform: skewX(-20deg);
+    animation: sheen 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+    z-index: 7;
+  }
+
+  /* 3D Text Extrude Hover */
+  .text-extrude {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
+  }
+  .text-extrude:hover {
+    transform: translateZ(50px) translateY(-10px) rotateX(-10deg);
+    text-shadow: 
+      0 1px 0 #555,
+      0 2px 0 #444,
+      0 3px 0 #333,
+      0 4px 0 #222,
+      0 5px 0 #111,
+      0 10px 15px rgba(0,0,0,0.8),
+      0 15px 25px rgba(0,255,213,0.4),
+      0 -5px 25px rgba(255,0,200,0.4);
+  }
+
+  /* Outline Text Fill Animation */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    background: linear-gradient(90deg, #fff, #fff);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: fill-text 5s cubic-bezier(0.86, 0, 0.07, 1) infinite alternate;
+  }
+
+  /* Spinning Neon Border Button */
+  .spin-border {
+    position: relative;
+    border-radius: 1.5rem;
+    padding: 2px; /* thickness of the border */
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .spin-border:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+  .spin-border::before,
+  .spin-border::after {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    z-index: 0;
+    background: conic-gradient(
+      from var(--gradient-angle),
+      transparent 20%,
+      #00ffd5,
+      #ff00c8,
+      transparent 80%
+    );
+    border-radius: inherit;
+    animation: rotation 3s linear infinite;
+  }
+  .spin-border::after {
+    filter: blur(15px);
+    opacity: 0.8;
+  }
+  .spin-inner {
+    background: #0a0a0c;
+    height: 100%;
+    width: 100%;
+    border-radius: calc(1.5rem - 2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease;
+  }
+  .spin-border:hover .spin-inner {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Liquid Blob Morphing Background */
+  .liquid-blob {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: morph 8s ease-in-out infinite both alternate;
+  }
+
+  /* Infinite Scrolling Text Layer */
+  .marquee-wrapper {
+    white-space: nowrap;
+    display: flex;
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Smooth Card Hover Glow */
+  .glow-card {
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+  .glow-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      0 30px 60px -15px rgba(0, 0, 0, 0.9),
+      0 0 50px -10px rgba(0, 255, 213, 0.15),
+      0 0 50px -10px rgba(255, 0, 200, 0.15);
+  }
+
+  /* 3D Utilities */
+  .preserve-3d { transform-style: preserve-3d; }
+  .translate-z-10 { transform: translateZ(20px); }
+  .translate-z-20 { transform: translateZ(40px); }
+  .translate-z-30 { transform: translateZ(60px); }
+  .translate-z-40 { transform: translateZ(100px); }
+  /* Custom Scrollbar for Modal */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 213, 0.4);
+  }
+}
+
+@keyframes sheen {
+  0%, 30% { left: -100%; opacity: 0; }
+  40% { opacity: 1; }
+  70%, 100% { left: 200%; opacity: 0; }
+}
+@keyframes rotation {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+@keyframes morph {
+  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+}
+@keyframes fill-text {
+  0%, 20% { background-size: 0% 100%; }
+  80%, 100% { background-size: 100% 100%; }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
