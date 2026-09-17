@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Globe, Sparkles } from 'lucide-react';
+import { ExternalLink, Globe, Sparkles, Swords, Shield } from 'lucide-react';
 import { MagneticButton } from './components/MagneticButton';
 import { ProjectsModal } from './components/ProjectsModal';
 import { PROJECTS } from './data/projects';
@@ -111,8 +111,24 @@ export default function App() {
         className="absolute inset-0 z-0 pointer-events-none transition-transform duration-[200ms] ease-out will-change-transform"
         style={{ transform: `translate(${mousePos.x * -50}px, ${mousePos.y * -50}px)` }}
       >
-        <div className="absolute top-[10%] left-[15%] w-[40rem] h-[40rem] bg-[#00ffd5]/10 mix-blend-screen blur-[100px] liquid-blob" />
-        <div className="absolute bottom-[5%] right-[15%] w-[45rem] h-[45rem] bg-[#ff00c8]/10 mix-blend-screen blur-[120px] liquid-blob" style={{ animationDelay: '-4s' }} />
+        <div className="absolute top-[10%] left-[15%] w-[40rem] h-[40rem] bg-[#00ffd5]/15 mix-blend-screen blur-[100px] liquid-blob" />
+        <div className="absolute bottom-[5%] right-[15%] w-[45rem] h-[45rem] bg-[#ff00c8]/15 mix-blend-screen blur-[120px] liquid-blob" style={{ animationDelay: '-4s' }} />
+        <div className="absolute top-[50%] right-[40%] w-[35rem] h-[35rem] bg-[#8a2be2]/15 mix-blend-screen blur-[110px] liquid-blob" style={{ animationDelay: '-2s' }} />
+        {/* Floating Particles */}
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div 
+            key={i} 
+            className="absolute rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+            style={{
+              width: `${Math.random() * 3 + 1}px`,
+              height: `${Math.random() * 3 + 1}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `morph ${Math.random() * 5 + 5}s linear infinite alternate`,
+              opacity: Math.random() * 0.4 + 0.1
+            }}
+          />
+        ))}
       </div>
 
       {/* 4. The Glassmorphic 3D Card Container with Holo Glare */}
@@ -133,35 +149,53 @@ export default function App() {
           {/* Ultra-subtle Micro Specular Pin-Light Reflection */}
           <div className="micro-glare" />
           
-          {/* 3D Extruding & Filling Typography Title */}
+          {/* 3D Extruding & Filling Typography Title with Shimmer */}
           <div className="translate-z-40 mb-10 mt-2 relative z-10 cursor-default">
-            <h1 className="text-6xl sm:text-8xl md:text-[8rem] font-black tracking-tighter text-extrude text-outline relative z-10 group">
-              MAX & BLOCK
+            <h1 className="text-6xl sm:text-8xl md:text-[8rem] font-black tracking-tighter text-extrude text-outline relative z-10 group pb-2">
+              <span className="text-shimmer">MAX & BLOCK</span>
             </h1>
           </div>
 
           {/* Professional Subtitle with translate-Z depth */}
           <div className="translate-z-30 mb-16 w-full flex flex-col items-center z-10 cursor-default">
-            <p className="text-zinc-400 max-w-2xl mx-auto text-xl sm:text-2xl font-medium leading-relaxed tracking-wide">
+            <p className="text-[#00ffd5] mb-6 text-sm sm:text-lg font-bold tracking-widest uppercase typewriter-text">
+              Full-Stack Developers & Addon Creators
+            </p>
+            <p className="text-zinc-300 max-w-2xl mx-auto text-xl sm:text-2xl font-medium leading-relaxed tracking-wide">
               A collaborative portfolio. Every project, design, and line of code showcased here is built by the two of us as a unified team.
             </p>
           </div>
 
           {/* Action Links with Glowing Magnetic Pull Buttons */}
-          <div className="flex flex-col md:flex-row gap-8 justify-center items-center translate-z-40 w-full z-10 mt-2">
+          <div className="flex flex-col lg:flex-row gap-6 justify-center items-center translate-z-40 w-full z-10 mt-2 flex-wrap">
             
-            {/* Magnetic GitHub Button */}
+            {/* PvP Realm BP Button */}
             <MagneticButton
-              href="https://github.com/Max-code02" 
+              href="https://www.curseforge.com/minecraft-bedrock/addons/pvp-realm-bp" 
               target="_blank" 
               rel="noreferrer" 
-              className="w-full md:w-auto group"
+              className="w-full md:w-auto group glow-pulse-red rounded-xl"
               strength={0.38}
               onHoverChange={setCursorHovered}
             >
-              <Github className="w-8 h-8 transition-transform duration-500 group-hover:-translate-y-1" />
+              <Swords className="w-8 h-8 transition-transform duration-500 group-hover:-translate-y-1" />
               <span className="font-bold text-xl tracking-wide">
-                @Max-code02
+                PvP Realm
+              </span>
+            </MagneticButton>
+
+            {/* AntiAFK Realms Button */}
+            <MagneticButton
+              href="https://www.curseforge.com/minecraft-bedrock/addons/antiafk-realms" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="w-full md:w-auto group glow-pulse-blue rounded-xl"
+              strength={0.38}
+              onHoverChange={setCursorHovered}
+            >
+              <Shield className="w-8 h-8 transition-transform duration-500 group-hover:-translate-y-1" />
+              <span className="font-bold text-xl tracking-wide">
+                AntiAFK
               </span>
             </MagneticButton>
 
